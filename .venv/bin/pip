@@ -1,4 +1,4 @@
-#!/home/bernardette/codes/GlintTest-backend/.venv/bin/python3.12
+#!/home/bernardatte/codes/GlintTest-backend/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
