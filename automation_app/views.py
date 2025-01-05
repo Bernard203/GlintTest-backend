@@ -3,11 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import JsonResponse
 from django.core.cache import cache
-from .utils.llm_api import generate_test_operations, read_json_file
 from .utils.run_test import start_guitest, MAX_STATE
-from .utils.screenshot_tools import capture_screenshot
-from .utils.gui_executor import execute_adb_commands
-from .utils.state_validator import validate_operations
 import threading
 
 scene_description = "Test the login function of the app."

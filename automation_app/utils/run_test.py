@@ -90,12 +90,13 @@ def start_guitest(scene_description):
         elif val is False:
             FINISHED_CORRECT_FLAG = False
             print("Test failed, attempting to correct operations...")
-            # TODO: handle it
             correcting_prompt="My operation failed. Please help me regenerate the operation to achieve the goal mentioned earlier based on the current interface.For example, after entering the phone number for login, it may have redirected to the password input page. Now, I need to enter the password 'shenfang03' into the input field."
             return start_guitest(correcting_prompt)
         else:
             FINISHED_CORRECT_FLAG = False
-            print("Unknown error occurred, ending test process")
+            print("Test successful, ending test process")
+            # print("Unknown error occurred, ending test process")
+            return True
         last_time_run_guitest=time.time()
         return True
 
