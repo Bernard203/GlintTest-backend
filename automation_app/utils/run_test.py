@@ -28,7 +28,7 @@ def start_guitest(scene_description):
     :param json_data: 界面组件的 JSON 数据
     :param scene_description: 测试场景描述
     """
-    global USER_STOP_FLAG, state, last_time_run_guitest
+    global USER_STOP_FLAG, state, last_time_run_guitest, val, result, operations
     while time.time() < last_time_run_guitest+10:
         sleep(1)
 
