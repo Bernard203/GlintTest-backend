@@ -94,9 +94,7 @@ def start_guitest(scene_description):
             return start_guitest(correcting_prompt)
         else:
             FINISHED_CORRECT_FLAG = False
-            print("Test successful, ending test process")
-            # print("Unknown error occurred, ending test process")
-            return True
+            print("Unknown error occurred, ending test process")
         last_time_run_guitest=time.time()
         return True
 

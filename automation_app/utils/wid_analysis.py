@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 import tensorflow as tf
-from tensorflow.keras.models import Model, load_model
+from keras.src.saving import load_model
 
 
 class CNN:
