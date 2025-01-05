@@ -8,6 +8,7 @@ import threading
 STOP_TEST_FLAG = False
 FINISH_TEST_FLAG = False
 state=0
+MAX_STATE=10
 lock=threading.Lock()
 
 def update_stop_test_flag(value):
@@ -53,13 +54,22 @@ def start_guitest(scene_description):
             state=4
         print("Re-capturing screenshot and validating state...")
         capture_screenshot()
-        extract_components()
-        json_data = read_json_file()
-        result = generate_test_operations(json_data, scene_description)
-        val = validate_operations(result)
 
         with lock:
             state=5
+        extract_components()
+
+        with lock:
+            state=6
+        json_data = read_json_file()
+        result = generate_test_operations(json_data, scene_description)
+
+        with lock:
+            state=7
+        val = validate_operations(result)
+
+        with lock:
+            state=MAX_STATE
         global FINISH_TEST_FLAG
         if val:
             print("Test successful, ending test process")

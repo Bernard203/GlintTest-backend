@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.core.cache import cache
 from .utils.llm_api import generate_test_operations, read_json_file
-from .utils.run_test import start_guitest
+from .utils.run_test import start_guitest, MAX_STATE
 from .utils.screenshot_tools import capture_screenshot
 from .utils.gui_executor import execute_adb_commands
 from .utils.state_validator import validate_operations
@@ -37,7 +37,7 @@ def start_test(request):
 def test_status(request):
     if request.method == "POST":
         from .utils.run_test import state
-        if state==5:
+        if state==MAX_STATE:
             return JsonResponse({"message": "Test finished."})
         else:
             return JsonResponse({"message": "Test in progress."})
