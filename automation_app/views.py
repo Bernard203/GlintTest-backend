@@ -35,7 +35,7 @@ def start_test(request):
 
 # 查询测试状态
 def test_status(request):
-    if request.method == "POST":
+    if request.method == "GET":
         from .utils.run_test import state
         if state==MAX_STATE:
             return JsonResponse({"message": "Test finished."})
@@ -45,7 +45,7 @@ def test_status(request):
 
 # 获取测试结果
 def test_result(request):
-    if request.method == "POST":
+    if request.method == "GET":
         from .utils.run_test import FINISHED_CORRECT_FLAG
         if FINISHED_CORRECT_FLAG:
             return JsonResponse({"message": "Test successful, ending test process."})
