@@ -46,8 +46,8 @@ def test_status(request):
 # 获取测试结果
 def test_result(request):
     if request.method == "POST":
-        from .utils.run_test import FINISH_TEST_FLAG
-        if FINISH_TEST_FLAG:
+        from .utils.run_test import FINISHED_CORRECT_FLAG
+        if FINISHED_CORRECT_FLAG:
             return JsonResponse({"message": "Test successful, ending test process."})
         else:
             return JsonResponse({"message": "Test failed."})
