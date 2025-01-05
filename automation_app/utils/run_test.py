@@ -3,10 +3,12 @@ from .llm_api import generate_test_operations, read_json_file
 from .state_validator import validate_operations
 from .gui_executor import execute_adb_commands
 from .screenshot_tools import capture_screenshot, extract_components
+import threading
 
 STOP_TEST_FLAG = False
 FINISH_TEST_FLAG = False
-
+state=0
+lock=threading.Lock()
 
 def update_stop_test_flag(value):
     """
@@ -23,26 +25,41 @@ def start_guitest(scene_description):
     :param json_data: 界面组件的 JSON 数据
     :param scene_description: 测试场景描述
     """
-    global STOP_TEST_FLAG
+    global STOP_TEST_FLAG, state
 
     while not STOP_TEST_FLAG:
+        with lock:
+            state=0
         print("Capturing current screenshot...")
         capture_screenshot()
+
+        with lock:
+            state=1
         print("Extracting UI components...")
         extract_components()
-        json_data = read_json_file()
+
+        with lock:
+            state=2
         print("Generating test operations...")
+        json_data = read_json_file()
         operations = generate_test_operations(json_data, scene_description)
+
+        with lock:
+            state=3
         print("Executing test operations...")
         execute_adb_commands(operations)
 
+        with lock:
+            state=4
         print("Re-capturing screenshot and validating state...")
         capture_screenshot()
         extract_components()
         json_data = read_json_file()
-
         result = generate_test_operations(json_data, scene_description)
         val = validate_operations(result)
+
+        with lock:
+            state=5
         global FINISH_TEST_FLAG
         if val:
             print("Test successful, ending test process")
